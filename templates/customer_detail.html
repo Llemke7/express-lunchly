@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Customer: {{ customer.fullName }}</h1>
+  <p>Phone: {{ customer.phone }}</p>
+  <p>Notes: {{ customer.notes }}</p>
+
+  <h2>Reservations</h2>
+  <ul>
+    {% for reservation in reservations %}
+      <li>
+        {{ reservation.getformattedStartAt() }}:
+        {{ reservation.numGuests }} guests
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h2>Add Reservation</h2>
+  <form method="post" action="/customers/{{ customer.id }}/reservations/add">
+    <p>Start at: <input name="start_at" placeholder="YYYY-MM-DD HH:MM" /></p>
+    <p>Number of guests: <input name="num_guests" type="number" /></p>
+    <p>Notes: <textarea name="notes"></textarea></p>
+    <p><button>Add</button></p>
+  </form>
+{% endblock %}
